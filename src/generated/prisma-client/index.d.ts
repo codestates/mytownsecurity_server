@@ -16,6 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  crime: (where?: CrimeWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -38,6 +39,25 @@ export interface Prisma {
    * Queries
    */
 
+  crime: (where: CrimeWhereUniqueInput) => CrimeNullablePromise;
+  crimes: (args?: {
+    where?: CrimeWhereInput;
+    orderBy?: CrimeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Crime>;
+  crimesConnection: (args?: {
+    where?: CrimeWhereInput;
+    orderBy?: CrimeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => CrimeConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -63,6 +83,22 @@ export interface Prisma {
    * Mutations
    */
 
+  createCrime: (data: CrimeCreateInput) => CrimePromise;
+  updateCrime: (args: {
+    data: CrimeUpdateInput;
+    where: CrimeWhereUniqueInput;
+  }) => CrimePromise;
+  updateManyCrimes: (args: {
+    data: CrimeUpdateManyMutationInput;
+    where?: CrimeWhereInput;
+  }) => BatchPayloadPromise;
+  upsertCrime: (args: {
+    where: CrimeWhereUniqueInput;
+    create: CrimeCreateInput;
+    update: CrimeUpdateInput;
+  }) => CrimePromise;
+  deleteCrime: (where: CrimeWhereUniqueInput) => CrimePromise;
+  deleteManyCrimes: (where?: CrimeWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -88,6 +124,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  crime: (
+    where?: CrimeSubscriptionWhereInput
+  ) => CrimeSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -101,6 +140,22 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type CrimeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "gu_ASC"
+  | "gu_DESC"
+  | "murder_ASC"
+  | "murder_DESC"
+  | "robbery_ASC"
+  | "robbery_DESC"
+  | "rape_ASC"
+  | "rape_DESC"
+  | "theft_ASC"
+  | "theft_DESC"
+  | "violence_ASC"
+  | "violence_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -110,6 +165,84 @@ export type UserOrderByInput =
   | "password_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type CrimeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface CrimeWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  gu?: Maybe<String>;
+  gu_not?: Maybe<String>;
+  gu_in?: Maybe<String[] | String>;
+  gu_not_in?: Maybe<String[] | String>;
+  gu_lt?: Maybe<String>;
+  gu_lte?: Maybe<String>;
+  gu_gt?: Maybe<String>;
+  gu_gte?: Maybe<String>;
+  gu_contains?: Maybe<String>;
+  gu_not_contains?: Maybe<String>;
+  gu_starts_with?: Maybe<String>;
+  gu_not_starts_with?: Maybe<String>;
+  gu_ends_with?: Maybe<String>;
+  gu_not_ends_with?: Maybe<String>;
+  murder?: Maybe<Int>;
+  murder_not?: Maybe<Int>;
+  murder_in?: Maybe<Int[] | Int>;
+  murder_not_in?: Maybe<Int[] | Int>;
+  murder_lt?: Maybe<Int>;
+  murder_lte?: Maybe<Int>;
+  murder_gt?: Maybe<Int>;
+  murder_gte?: Maybe<Int>;
+  robbery?: Maybe<Int>;
+  robbery_not?: Maybe<Int>;
+  robbery_in?: Maybe<Int[] | Int>;
+  robbery_not_in?: Maybe<Int[] | Int>;
+  robbery_lt?: Maybe<Int>;
+  robbery_lte?: Maybe<Int>;
+  robbery_gt?: Maybe<Int>;
+  robbery_gte?: Maybe<Int>;
+  rape?: Maybe<Int>;
+  rape_not?: Maybe<Int>;
+  rape_in?: Maybe<Int[] | Int>;
+  rape_not_in?: Maybe<Int[] | Int>;
+  rape_lt?: Maybe<Int>;
+  rape_lte?: Maybe<Int>;
+  rape_gt?: Maybe<Int>;
+  rape_gte?: Maybe<Int>;
+  theft?: Maybe<Int>;
+  theft_not?: Maybe<Int>;
+  theft_in?: Maybe<Int[] | Int>;
+  theft_not_in?: Maybe<Int[] | Int>;
+  theft_lt?: Maybe<Int>;
+  theft_lte?: Maybe<Int>;
+  theft_gt?: Maybe<Int>;
+  theft_gte?: Maybe<Int>;
+  violence?: Maybe<Int>;
+  violence_not?: Maybe<Int>;
+  violence_in?: Maybe<Int[] | Int>;
+  violence_not_in?: Maybe<Int[] | Int>;
+  violence_lt?: Maybe<Int>;
+  violence_lte?: Maybe<Int>;
+  violence_gt?: Maybe<Int>;
+  violence_gte?: Maybe<Int>;
+  AND?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
+  OR?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
+  NOT?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
+}
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -164,6 +297,34 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
+export interface CrimeCreateInput {
+  id?: Maybe<ID_Input>;
+  gu: String;
+  murder: Int;
+  robbery: Int;
+  rape: Int;
+  theft: Int;
+  violence: Int;
+}
+
+export interface CrimeUpdateInput {
+  gu?: Maybe<String>;
+  murder?: Maybe<Int>;
+  robbery?: Maybe<Int>;
+  rape?: Maybe<Int>;
+  theft?: Maybe<Int>;
+  violence?: Maybe<Int>;
+}
+
+export interface CrimeUpdateManyMutationInput {
+  gu?: Maybe<String>;
+  murder?: Maybe<Int>;
+  robbery?: Maybe<Int>;
+  rape?: Maybe<Int>;
+  theft?: Maybe<Int>;
+  violence?: Maybe<Int>;
+}
+
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
@@ -180,6 +341,17 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
 }
 
+export interface CrimeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<CrimeWhereInput>;
+  AND?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
+  OR?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
+  NOT?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
+}
+
 export interface UserSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -193,6 +365,127 @@ export interface UserSubscriptionWhereInput {
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface Crime {
+  id: ID_Output;
+  gu: String;
+  murder: Int;
+  robbery: Int;
+  rape: Int;
+  theft: Int;
+  violence: Int;
+}
+
+export interface CrimePromise extends Promise<Crime>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  gu: () => Promise<String>;
+  murder: () => Promise<Int>;
+  robbery: () => Promise<Int>;
+  rape: () => Promise<Int>;
+  theft: () => Promise<Int>;
+  violence: () => Promise<Int>;
+}
+
+export interface CrimeSubscription
+  extends Promise<AsyncIterator<Crime>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  gu: () => Promise<AsyncIterator<String>>;
+  murder: () => Promise<AsyncIterator<Int>>;
+  robbery: () => Promise<AsyncIterator<Int>>;
+  rape: () => Promise<AsyncIterator<Int>>;
+  theft: () => Promise<AsyncIterator<Int>>;
+  violence: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CrimeNullablePromise
+  extends Promise<Crime | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  gu: () => Promise<String>;
+  murder: () => Promise<Int>;
+  robbery: () => Promise<Int>;
+  rape: () => Promise<Int>;
+  theft: () => Promise<Int>;
+  violence: () => Promise<Int>;
+}
+
+export interface CrimeConnection {
+  pageInfo: PageInfo;
+  edges: CrimeEdge[];
+}
+
+export interface CrimeConnectionPromise
+  extends Promise<CrimeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CrimeEdge>>() => T;
+  aggregate: <T = AggregateCrimePromise>() => T;
+}
+
+export interface CrimeConnectionSubscription
+  extends Promise<AsyncIterator<CrimeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CrimeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCrimeSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CrimeEdge {
+  node: Crime;
+  cursor: String;
+}
+
+export interface CrimeEdgePromise extends Promise<CrimeEdge>, Fragmentable {
+  node: <T = CrimePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CrimeEdgeSubscription
+  extends Promise<AsyncIterator<CrimeEdge>>,
+    Fragmentable {
+  node: <T = CrimeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateCrime {
+  count: Int;
+}
+
+export interface AggregateCrimePromise
+  extends Promise<AggregateCrime>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCrimeSubscription
+  extends Promise<AsyncIterator<AggregateCrime>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface User {
@@ -244,29 +537,6 @@ export interface UserConnectionSubscription
   aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface UserEdge {
   node: User;
   cursor: String;
@@ -314,6 +584,65 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface CrimeSubscriptionPayload {
+  mutation: MutationType;
+  node: Crime;
+  updatedFields: String[];
+  previousValues: CrimePreviousValues;
+}
+
+export interface CrimeSubscriptionPayloadPromise
+  extends Promise<CrimeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CrimePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CrimePreviousValuesPromise>() => T;
+}
+
+export interface CrimeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CrimeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CrimeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CrimePreviousValuesSubscription>() => T;
+}
+
+export interface CrimePreviousValues {
+  id: ID_Output;
+  gu: String;
+  murder: Int;
+  robbery: Int;
+  rape: Int;
+  theft: Int;
+  violence: Int;
+}
+
+export interface CrimePreviousValuesPromise
+  extends Promise<CrimePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  gu: () => Promise<String>;
+  murder: () => Promise<Int>;
+  robbery: () => Promise<Int>;
+  rape: () => Promise<Int>;
+  theft: () => Promise<Int>;
+  violence: () => Promise<Int>;
+}
+
+export interface CrimePreviousValuesSubscription
+  extends Promise<AsyncIterator<CrimePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  gu: () => Promise<AsyncIterator<String>>;
+  murder: () => Promise<AsyncIterator<Int>>;
+  robbery: () => Promise<AsyncIterator<Int>>;
+  rape: () => Promise<AsyncIterator<Int>>;
+  theft: () => Promise<AsyncIterator<Int>>;
+  violence: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -393,6 +722,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Crime",
     embedded: false
   }
 ];
