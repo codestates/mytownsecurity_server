@@ -2,4 +2,14 @@ type User {
   id: ID! @id             
   email: String! @unique  
   password: String!         
-}                        
+}
+
+type Crime {
+  id: ID! @id
+  gu: String!  
+  murder: Int!  
+  robbery: Int!  
+  rape: Int!  
+  theft: Int! 
+  violence: Int! 
+}
