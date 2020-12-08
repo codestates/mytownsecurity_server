@@ -7,6 +7,10 @@ module.exports = {
   count: Int!
 }
 
+type AggregateStation {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -196,6 +200,12 @@ type Mutation {
   upsertCrime(where: CrimeWhereUniqueInput!, create: CrimeCreateInput!, update: CrimeUpdateInput!): Crime!
   deleteCrime(where: CrimeWhereUniqueInput!): Crime
   deleteManyCrimes(where: CrimeWhereInput): BatchPayload!
+  createStation(data: StationCreateInput!): Station!
+  updateStation(data: StationUpdateInput!, where: StationWhereUniqueInput!): Station
+  updateManyStations(data: StationUpdateManyMutationInput!, where: StationWhereInput): BatchPayload!
+  upsertStation(where: StationWhereUniqueInput!, create: StationCreateInput!, update: StationUpdateInput!): Station!
+  deleteStation(where: StationWhereUniqueInput!): Station
+  deleteManyStations(where: StationWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -225,14 +235,166 @@ type Query {
   crime(where: CrimeWhereUniqueInput!): Crime
   crimes(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Crime]!
   crimesConnection(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CrimeConnection!
+  station(where: StationWhereUniqueInput!): Station
+  stations(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Station]!
+  stationsConnection(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StationConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
+type Station {
+  id: ID!
+  stationName: String!
+  X: Float!
+  Y: Float!
+  stationAddress: String!
+}
+
+type StationConnection {
+  pageInfo: PageInfo!
+  edges: [StationEdge]!
+  aggregate: AggregateStation!
+}
+
+input StationCreateInput {
+  id: ID
+  stationName: String!
+  X: Float!
+  Y: Float!
+  stationAddress: String!
+}
+
+type StationEdge {
+  node: Station!
+  cursor: String!
+}
+
+enum StationOrderByInput {
+  id_ASC
+  id_DESC
+  stationName_ASC
+  stationName_DESC
+  X_ASC
+  X_DESC
+  Y_ASC
+  Y_DESC
+  stationAddress_ASC
+  stationAddress_DESC
+}
+
+type StationPreviousValues {
+  id: ID!
+  stationName: String!
+  X: Float!
+  Y: Float!
+  stationAddress: String!
+}
+
+type StationSubscriptionPayload {
+  mutation: MutationType!
+  node: Station
+  updatedFields: [String!]
+  previousValues: StationPreviousValues
+}
+
+input StationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: StationWhereInput
+  AND: [StationSubscriptionWhereInput!]
+  OR: [StationSubscriptionWhereInput!]
+  NOT: [StationSubscriptionWhereInput!]
+}
+
+input StationUpdateInput {
+  stationName: String
+  X: Float
+  Y: Float
+  stationAddress: String
+}
+
+input StationUpdateManyMutationInput {
+  stationName: String
+  X: Float
+  Y: Float
+  stationAddress: String
+}
+
+input StationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  stationName: String
+  stationName_not: String
+  stationName_in: [String!]
+  stationName_not_in: [String!]
+  stationName_lt: String
+  stationName_lte: String
+  stationName_gt: String
+  stationName_gte: String
+  stationName_contains: String
+  stationName_not_contains: String
+  stationName_starts_with: String
+  stationName_not_starts_with: String
+  stationName_ends_with: String
+  stationName_not_ends_with: String
+  X: Float
+  X_not: Float
+  X_in: [Float!]
+  X_not_in: [Float!]
+  X_lt: Float
+  X_lte: Float
+  X_gt: Float
+  X_gte: Float
+  Y: Float
+  Y_not: Float
+  Y_in: [Float!]
+  Y_not_in: [Float!]
+  Y_lt: Float
+  Y_lte: Float
+  Y_gt: Float
+  Y_gte: Float
+  stationAddress: String
+  stationAddress_not: String
+  stationAddress_in: [String!]
+  stationAddress_not_in: [String!]
+  stationAddress_lt: String
+  stationAddress_lte: String
+  stationAddress_gt: String
+  stationAddress_gte: String
+  stationAddress_contains: String
+  stationAddress_not_contains: String
+  stationAddress_starts_with: String
+  stationAddress_not_starts_with: String
+  stationAddress_ends_with: String
+  stationAddress_not_ends_with: String
+  AND: [StationWhereInput!]
+  OR: [StationWhereInput!]
+  NOT: [StationWhereInput!]
+}
+
+input StationWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
   crime(where: CrimeSubscriptionWhereInput): CrimeSubscriptionPayload
+  station(where: StationSubscriptionWhereInput): StationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

@@ -32,5 +32,8 @@
   },
   "nodemonConfig": {
     "ext": "graphql js"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.12.1"
   }
 }
