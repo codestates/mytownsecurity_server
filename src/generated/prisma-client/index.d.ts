@@ -17,7 +17,9 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   crime: (where?: CrimeWhereInput) => Promise<boolean>;
+
   station: (where?: StationWhereInput) => Promise<boolean>;
+
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -59,6 +61,7 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => CrimeConnectionPromise;
+
   station: (where: StationWhereUniqueInput) => StationNullablePromise;
   stations: (args?: {
     where?: StationWhereInput;
@@ -78,6 +81,8 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => StationConnectionPromise;
+
+
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -119,6 +124,7 @@ export interface Prisma {
   }) => CrimePromise;
   deleteCrime: (where: CrimeWhereUniqueInput) => CrimePromise;
   deleteManyCrimes: (where?: CrimeWhereInput) => BatchPayloadPromise;
+
   createStation: (data: StationCreateInput) => StationPromise;
   updateStation: (args: {
     data: StationUpdateInput;
@@ -135,6 +141,8 @@ export interface Prisma {
   }) => StationPromise;
   deleteStation: (where: StationWhereUniqueInput) => StationPromise;
   deleteManyStations: (where?: StationWhereInput) => BatchPayloadPromise;
+
+
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -163,9 +171,11 @@ export interface Subscription {
   crime: (
     where?: CrimeSubscriptionWhereInput
   ) => CrimeSubscriptionPayloadSubscription;
+
   station: (
     where?: StationSubscriptionWhereInput
   ) => StationSubscriptionPayloadSubscription;
+
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -195,6 +205,7 @@ export type CrimeOrderByInput =
   | "violence_ASC"
   | "violence_DESC";
 
+
 export type StationOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -206,6 +217,7 @@ export type StationOrderByInput =
   | "Y_DESC"
   | "stationAddress_ASC"
   | "stationAddress_DESC";
+
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -294,6 +306,7 @@ export interface CrimeWhereInput {
   OR?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
   NOT?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
 }
+
 
 export type StationWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -444,6 +457,7 @@ export interface CrimeUpdateManyMutationInput {
   violence?: Maybe<Int>;
 }
 
+
 export interface StationCreateInput {
   id?: Maybe<ID_Input>;
   stationName: String;
@@ -492,6 +506,7 @@ export interface CrimeSubscriptionWhereInput {
   OR?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
   NOT?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
 }
+
 
 export interface StationSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
@@ -887,6 +902,7 @@ export interface CrimePreviousValuesSubscription
   violence: () => Promise<AsyncIterator<Int>>;
 }
 
+
 export interface StationSubscriptionPayload {
   mutation: MutationType;
   node: Station;
@@ -1027,10 +1043,12 @@ export const models: Model[] = [
   {
     name: "Crime",
     embedded: false
+
   },
   {
     name: "Station",
     embedded: false
+
   }
 ];
 

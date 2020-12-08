@@ -7,9 +7,11 @@ module.exports = {
   count: Int!
 }
 
+
 type AggregateStation {
   count: Int!
 }
+
 
 type AggregateUser {
   count: Int!
@@ -200,12 +202,14 @@ type Mutation {
   upsertCrime(where: CrimeWhereUniqueInput!, create: CrimeCreateInput!, update: CrimeUpdateInput!): Crime!
   deleteCrime(where: CrimeWhereUniqueInput!): Crime
   deleteManyCrimes(where: CrimeWhereInput): BatchPayload!
+
   createStation(data: StationCreateInput!): Station!
   updateStation(data: StationUpdateInput!, where: StationWhereUniqueInput!): Station
   updateManyStations(data: StationUpdateManyMutationInput!, where: StationWhereInput): BatchPayload!
   upsertStation(where: StationWhereUniqueInput!, create: StationCreateInput!, update: StationUpdateInput!): Station!
   deleteStation(where: StationWhereUniqueInput!): Station
   deleteManyStations(where: StationWhereInput): BatchPayload!
+
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -235,9 +239,11 @@ type Query {
   crime(where: CrimeWhereUniqueInput!): Crime
   crimes(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Crime]!
   crimesConnection(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CrimeConnection!
+
   station(where: StationWhereUniqueInput!): Station
   stations(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Station]!
   stationsConnection(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StationConnection!
+
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -394,7 +400,9 @@ input StationWhereUniqueInput {
 
 type Subscription {
   crime(where: CrimeSubscriptionWhereInput): CrimeSubscriptionPayload
+
   station(where: StationSubscriptionWhereInput): StationSubscriptionPayload
+
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

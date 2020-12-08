@@ -12,6 +12,7 @@ type Crime {
   rape: Int!  
   theft: Int! 
   violence: Int! 
+
 }
 
 type Station {
@@ -20,4 +21,5 @@ type Station {
   X : Float!
   Y : Float!
   stationAddress : String!
+
 }

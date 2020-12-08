@@ -14,6 +14,7 @@ type Crime {
   violence: Int!
 }
 
+
 type Station {
   id: ID!
   stationName: String!
@@ -21,3 +22,4 @@ type Station {
   Y: Float!
   stationAddress: String!
 }
+
