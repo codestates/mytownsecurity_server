@@ -13,3 +13,11 @@ type Crime {
   theft: Int!
   violence: Int!
 }
+
+type Station {
+  id: ID!
+  stationName: String!
+  X: Float!
+  Y: Float!
+  stationAddress: String!
+}
