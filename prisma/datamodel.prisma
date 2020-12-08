@@ -16,8 +16,8 @@ type Crime {
 
 type Station {
   id : ID! @id
-  "stationName" : String!
-  "X" : Float!
-  "Y" : Float!
-  "stationAddress" : String!
+  stationName : String!
+  X : Float!
+  Y : Float!
+  stationAddress : String!
 }
