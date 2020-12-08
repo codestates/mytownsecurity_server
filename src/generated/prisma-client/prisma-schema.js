@@ -3,7 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateCrime {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -11,9 +15,187 @@ type BatchPayload {
   count: Long!
 }
 
+type Crime {
+  id: ID!
+  gu: String!
+  murder: Int!
+  robbery: Int!
+  rape: Int!
+  theft: Int!
+  violence: Int!
+}
+
+type CrimeConnection {
+  pageInfo: PageInfo!
+  edges: [CrimeEdge]!
+  aggregate: AggregateCrime!
+}
+
+input CrimeCreateInput {
+  id: ID
+  gu: String!
+  murder: Int!
+  robbery: Int!
+  rape: Int!
+  theft: Int!
+  violence: Int!
+}
+
+type CrimeEdge {
+  node: Crime!
+  cursor: String!
+}
+
+enum CrimeOrderByInput {
+  id_ASC
+  id_DESC
+  gu_ASC
+  gu_DESC
+  murder_ASC
+  murder_DESC
+  robbery_ASC
+  robbery_DESC
+  rape_ASC
+  rape_DESC
+  theft_ASC
+  theft_DESC
+  violence_ASC
+  violence_DESC
+}
+
+type CrimePreviousValues {
+  id: ID!
+  gu: String!
+  murder: Int!
+  robbery: Int!
+  rape: Int!
+  theft: Int!
+  violence: Int!
+}
+
+type CrimeSubscriptionPayload {
+  mutation: MutationType!
+  node: Crime
+  updatedFields: [String!]
+  previousValues: CrimePreviousValues
+}
+
+input CrimeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CrimeWhereInput
+  AND: [CrimeSubscriptionWhereInput!]
+  OR: [CrimeSubscriptionWhereInput!]
+  NOT: [CrimeSubscriptionWhereInput!]
+}
+
+input CrimeUpdateInput {
+  gu: String
+  murder: Int
+  robbery: Int
+  rape: Int
+  theft: Int
+  violence: Int
+}
+
+input CrimeUpdateManyMutationInput {
+  gu: String
+  murder: Int
+  robbery: Int
+  rape: Int
+  theft: Int
+  violence: Int
+}
+
+input CrimeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  gu: String
+  gu_not: String
+  gu_in: [String!]
+  gu_not_in: [String!]
+  gu_lt: String
+  gu_lte: String
+  gu_gt: String
+  gu_gte: String
+  gu_contains: String
+  gu_not_contains: String
+  gu_starts_with: String
+  gu_not_starts_with: String
+  gu_ends_with: String
+  gu_not_ends_with: String
+  murder: Int
+  murder_not: Int
+  murder_in: [Int!]
+  murder_not_in: [Int!]
+  murder_lt: Int
+  murder_lte: Int
+  murder_gt: Int
+  murder_gte: Int
+  robbery: Int
+  robbery_not: Int
+  robbery_in: [Int!]
+  robbery_not_in: [Int!]
+  robbery_lt: Int
+  robbery_lte: Int
+  robbery_gt: Int
+  robbery_gte: Int
+  rape: Int
+  rape_not: Int
+  rape_in: [Int!]
+  rape_not_in: [Int!]
+  rape_lt: Int
+  rape_lte: Int
+  rape_gt: Int
+  rape_gte: Int
+  theft: Int
+  theft_not: Int
+  theft_in: [Int!]
+  theft_not_in: [Int!]
+  theft_lt: Int
+  theft_lte: Int
+  theft_gt: Int
+  theft_gte: Int
+  violence: Int
+  violence_not: Int
+  violence_in: [Int!]
+  violence_not_in: [Int!]
+  violence_lt: Int
+  violence_lte: Int
+  violence_gt: Int
+  violence_gte: Int
+  AND: [CrimeWhereInput!]
+  OR: [CrimeWhereInput!]
+  NOT: [CrimeWhereInput!]
+}
+
+input CrimeWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createCrime(data: CrimeCreateInput!): Crime!
+  updateCrime(data: CrimeUpdateInput!, where: CrimeWhereUniqueInput!): Crime
+  updateManyCrimes(data: CrimeUpdateManyMutationInput!, where: CrimeWhereInput): BatchPayload!
+  upsertCrime(where: CrimeWhereUniqueInput!, create: CrimeCreateInput!, update: CrimeUpdateInput!): Crime!
+  deleteCrime(where: CrimeWhereUniqueInput!): Crime
+  deleteManyCrimes(where: CrimeWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -40,6 +222,9 @@ type PageInfo {
 }
 
 type Query {
+  crime(where: CrimeWhereUniqueInput!): Crime
+  crimes(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Crime]!
+  crimesConnection(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CrimeConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -47,6 +232,7 @@ type Query {
 }
 
 type Subscription {
+  crime(where: CrimeSubscriptionWhereInput): CrimeSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

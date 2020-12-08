@@ -1,0 +1,15 @@
+type User {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type Crime {
+  id: ID!
+  gu: String!
+  murder: Int!
+  robbery: Int!
+  rape: Int!
+  theft: Int!
+  violence: Int!
+}
