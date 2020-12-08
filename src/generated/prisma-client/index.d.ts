@@ -17,6 +17,9 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   crime: (where?: CrimeWhereInput) => Promise<boolean>;
+
+  station: (where?: StationWhereInput) => Promise<boolean>;
+
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -58,6 +61,28 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => CrimeConnectionPromise;
+
+  station: (where: StationWhereUniqueInput) => StationNullablePromise;
+  stations: (args?: {
+    where?: StationWhereInput;
+    orderBy?: StationOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Station>;
+  stationsConnection: (args?: {
+    where?: StationWhereInput;
+    orderBy?: StationOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => StationConnectionPromise;
+
+
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -99,6 +124,25 @@ export interface Prisma {
   }) => CrimePromise;
   deleteCrime: (where: CrimeWhereUniqueInput) => CrimePromise;
   deleteManyCrimes: (where?: CrimeWhereInput) => BatchPayloadPromise;
+
+  createStation: (data: StationCreateInput) => StationPromise;
+  updateStation: (args: {
+    data: StationUpdateInput;
+    where: StationWhereUniqueInput;
+  }) => StationPromise;
+  updateManyStations: (args: {
+    data: StationUpdateManyMutationInput;
+    where?: StationWhereInput;
+  }) => BatchPayloadPromise;
+  upsertStation: (args: {
+    where: StationWhereUniqueInput;
+    create: StationCreateInput;
+    update: StationUpdateInput;
+  }) => StationPromise;
+  deleteStation: (where: StationWhereUniqueInput) => StationPromise;
+  deleteManyStations: (where?: StationWhereInput) => BatchPayloadPromise;
+
+
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -127,6 +171,11 @@ export interface Subscription {
   crime: (
     where?: CrimeSubscriptionWhereInput
   ) => CrimeSubscriptionPayloadSubscription;
+
+  station: (
+    where?: StationSubscriptionWhereInput
+  ) => StationSubscriptionPayloadSubscription;
+
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -155,6 +204,20 @@ export type CrimeOrderByInput =
   | "theft_DESC"
   | "violence_ASC"
   | "violence_DESC";
+
+
+export type StationOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "stationName_ASC"
+  | "stationName_DESC"
+  | "X_ASC"
+  | "X_DESC"
+  | "Y_ASC"
+  | "Y_DESC"
+  | "stationAddress_ASC"
+  | "stationAddress_DESC";
+
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -244,6 +307,75 @@ export interface CrimeWhereInput {
   NOT?: Maybe<CrimeWhereInput[] | CrimeWhereInput>;
 }
 
+
+export type StationWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface StationWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  stationName?: Maybe<String>;
+  stationName_not?: Maybe<String>;
+  stationName_in?: Maybe<String[] | String>;
+  stationName_not_in?: Maybe<String[] | String>;
+  stationName_lt?: Maybe<String>;
+  stationName_lte?: Maybe<String>;
+  stationName_gt?: Maybe<String>;
+  stationName_gte?: Maybe<String>;
+  stationName_contains?: Maybe<String>;
+  stationName_not_contains?: Maybe<String>;
+  stationName_starts_with?: Maybe<String>;
+  stationName_not_starts_with?: Maybe<String>;
+  stationName_ends_with?: Maybe<String>;
+  stationName_not_ends_with?: Maybe<String>;
+  X?: Maybe<Float>;
+  X_not?: Maybe<Float>;
+  X_in?: Maybe<Float[] | Float>;
+  X_not_in?: Maybe<Float[] | Float>;
+  X_lt?: Maybe<Float>;
+  X_lte?: Maybe<Float>;
+  X_gt?: Maybe<Float>;
+  X_gte?: Maybe<Float>;
+  Y?: Maybe<Float>;
+  Y_not?: Maybe<Float>;
+  Y_in?: Maybe<Float[] | Float>;
+  Y_not_in?: Maybe<Float[] | Float>;
+  Y_lt?: Maybe<Float>;
+  Y_lte?: Maybe<Float>;
+  Y_gt?: Maybe<Float>;
+  Y_gte?: Maybe<Float>;
+  stationAddress?: Maybe<String>;
+  stationAddress_not?: Maybe<String>;
+  stationAddress_in?: Maybe<String[] | String>;
+  stationAddress_not_in?: Maybe<String[] | String>;
+  stationAddress_lt?: Maybe<String>;
+  stationAddress_lte?: Maybe<String>;
+  stationAddress_gt?: Maybe<String>;
+  stationAddress_gte?: Maybe<String>;
+  stationAddress_contains?: Maybe<String>;
+  stationAddress_not_contains?: Maybe<String>;
+  stationAddress_starts_with?: Maybe<String>;
+  stationAddress_not_starts_with?: Maybe<String>;
+  stationAddress_ends_with?: Maybe<String>;
+  stationAddress_not_ends_with?: Maybe<String>;
+  AND?: Maybe<StationWhereInput[] | StationWhereInput>;
+  OR?: Maybe<StationWhereInput[] | StationWhereInput>;
+  NOT?: Maybe<StationWhereInput[] | StationWhereInput>;
+}
+
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
@@ -325,6 +457,29 @@ export interface CrimeUpdateManyMutationInput {
   violence?: Maybe<Int>;
 }
 
+
+export interface StationCreateInput {
+  id?: Maybe<ID_Input>;
+  stationName: String;
+  X: Float;
+  Y: Float;
+  stationAddress: String;
+}
+
+export interface StationUpdateInput {
+  stationName?: Maybe<String>;
+  X?: Maybe<Float>;
+  Y?: Maybe<Float>;
+  stationAddress?: Maybe<String>;
+}
+
+export interface StationUpdateManyMutationInput {
+  stationName?: Maybe<String>;
+  X?: Maybe<Float>;
+  Y?: Maybe<Float>;
+  stationAddress?: Maybe<String>;
+}
+
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
@@ -350,6 +505,18 @@ export interface CrimeSubscriptionWhereInput {
   AND?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
   OR?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
   NOT?: Maybe<CrimeSubscriptionWhereInput[] | CrimeSubscriptionWhereInput>;
+}
+
+
+export interface StationSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<StationWhereInput>;
+  AND?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
+  OR?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
+  NOT?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -484,6 +651,96 @@ export interface AggregateCrimePromise
 
 export interface AggregateCrimeSubscription
   extends Promise<AsyncIterator<AggregateCrime>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Station {
+  id: ID_Output;
+  stationName: String;
+  X: Float;
+  Y: Float;
+  stationAddress: String;
+}
+
+export interface StationPromise extends Promise<Station>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  stationName: () => Promise<String>;
+  X: () => Promise<Float>;
+  Y: () => Promise<Float>;
+  stationAddress: () => Promise<String>;
+}
+
+export interface StationSubscription
+  extends Promise<AsyncIterator<Station>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  stationName: () => Promise<AsyncIterator<String>>;
+  X: () => Promise<AsyncIterator<Float>>;
+  Y: () => Promise<AsyncIterator<Float>>;
+  stationAddress: () => Promise<AsyncIterator<String>>;
+}
+
+export interface StationNullablePromise
+  extends Promise<Station | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  stationName: () => Promise<String>;
+  X: () => Promise<Float>;
+  Y: () => Promise<Float>;
+  stationAddress: () => Promise<String>;
+}
+
+export interface StationConnection {
+  pageInfo: PageInfo;
+  edges: StationEdge[];
+}
+
+export interface StationConnectionPromise
+  extends Promise<StationConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<StationEdge>>() => T;
+  aggregate: <T = AggregateStationPromise>() => T;
+}
+
+export interface StationConnectionSubscription
+  extends Promise<AsyncIterator<StationConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<StationEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateStationSubscription>() => T;
+}
+
+export interface StationEdge {
+  node: Station;
+  cursor: String;
+}
+
+export interface StationEdgePromise extends Promise<StationEdge>, Fragmentable {
+  node: <T = StationPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface StationEdgeSubscription
+  extends Promise<AsyncIterator<StationEdge>>,
+    Fragmentable {
+  node: <T = StationSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateStation {
+  count: Int;
+}
+
+export interface AggregateStationPromise
+  extends Promise<AggregateStation>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateStationSubscription
+  extends Promise<AsyncIterator<AggregateStation>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -645,6 +902,60 @@ export interface CrimePreviousValuesSubscription
   violence: () => Promise<AsyncIterator<Int>>;
 }
 
+
+export interface StationSubscriptionPayload {
+  mutation: MutationType;
+  node: Station;
+  updatedFields: String[];
+  previousValues: StationPreviousValues;
+}
+
+export interface StationSubscriptionPayloadPromise
+  extends Promise<StationSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = StationPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = StationPreviousValuesPromise>() => T;
+}
+
+export interface StationSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<StationSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = StationSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = StationPreviousValuesSubscription>() => T;
+}
+
+export interface StationPreviousValues {
+  id: ID_Output;
+  stationName: String;
+  X: Float;
+  Y: Float;
+  stationAddress: String;
+}
+
+export interface StationPreviousValuesPromise
+  extends Promise<StationPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  stationName: () => Promise<String>;
+  X: () => Promise<Float>;
+  Y: () => Promise<Float>;
+  stationAddress: () => Promise<String>;
+}
+
+export interface StationPreviousValuesSubscription
+  extends Promise<AsyncIterator<StationPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  stationName: () => Promise<AsyncIterator<String>>;
+  X: () => Promise<AsyncIterator<Float>>;
+  Y: () => Promise<AsyncIterator<Float>>;
+  stationAddress: () => Promise<AsyncIterator<String>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -713,6 +1024,11 @@ The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
 
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
+
 export type Long = string;
 
 /**
@@ -727,6 +1043,12 @@ export const models: Model[] = [
   {
     name: "Crime",
     embedded: false
+
+  },
+  {
+    name: "Station",
+    embedded: false
+
   }
 ];
 
