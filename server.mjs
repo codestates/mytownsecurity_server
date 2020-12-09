@@ -1,7 +1,7 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import schema from './schema';
-import './env';
+import schema from './schema.mjs';
+import './env.mjs';
 import fs from 'fs';
 import https from 'https';
 import http from 'http';
@@ -12,6 +12,7 @@ const configurations = {
 };
 
 const environment = process.env.NODE_ENV || 'production';
+
 const config = configurations[environment];
 
 const apollo = new ApolloServer({ schema });

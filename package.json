@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "when searching mytownsecurity. ",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon --exec babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -37,6 +38,8 @@
     "ext": "graphql js"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
     "@prisma/cli": "^2.12.1"
   }
 }
