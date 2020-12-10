@@ -15,7 +15,7 @@ export default {
         throw new Error('Please check your Password');
       }
       const token = jwt.sign({ id: user.id }, process.env.SECRET);
-      return token;
+      return { token, user };
     },
   },
 };
