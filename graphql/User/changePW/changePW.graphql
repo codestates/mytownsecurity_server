@@ -1,0 +1,7 @@
+type Mutation {
+  changePW(email: String!, password: String!): Boolean!
+}
+
+type Query {
+  nouse: Int!
+}
