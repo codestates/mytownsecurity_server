@@ -3,15 +3,152 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateCrime {
+/* GraphQL */ `type Address {
+  id: ID!
+  detail: String!
+  X: Float!
+  Y: Float!
+}
+
+type AddressConnection {
+  pageInfo: PageInfo!
+  edges: [AddressEdge]!
+  aggregate: AggregateAddress!
+}
+
+input AddressCreateInput {
+  id: ID
+  detail: String!
+  X: Float!
+  Y: Float!
+}
+
+type AddressEdge {
+  node: Address!
+  cursor: String!
+}
+
+enum AddressOrderByInput {
+  id_ASC
+  id_DESC
+  detail_ASC
+  detail_DESC
+  X_ASC
+  X_DESC
+  Y_ASC
+  Y_DESC
+}
+
+type AddressPreviousValues {
+  id: ID!
+  detail: String!
+  X: Float!
+  Y: Float!
+}
+
+type AddressSubscriptionPayload {
+  mutation: MutationType!
+  node: Address
+  updatedFields: [String!]
+  previousValues: AddressPreviousValues
+}
+
+input AddressSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AddressWhereInput
+  AND: [AddressSubscriptionWhereInput!]
+  OR: [AddressSubscriptionWhereInput!]
+  NOT: [AddressSubscriptionWhereInput!]
+}
+
+input AddressUpdateInput {
+  detail: String
+  X: Float
+  Y: Float
+}
+
+input AddressUpdateManyMutationInput {
+  detail: String
+  X: Float
+  Y: Float
+}
+
+input AddressWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  detail: String
+  detail_not: String
+  detail_in: [String!]
+  detail_not_in: [String!]
+  detail_lt: String
+  detail_lte: String
+  detail_gt: String
+  detail_gte: String
+  detail_contains: String
+  detail_not_contains: String
+  detail_starts_with: String
+  detail_not_starts_with: String
+  detail_ends_with: String
+  detail_not_ends_with: String
+  X: Float
+  X_not: Float
+  X_in: [Float!]
+  X_not_in: [Float!]
+  X_lt: Float
+  X_lte: Float
+  X_gt: Float
+  X_gte: Float
+  Y: Float
+  Y_not: Float
+  Y_in: [Float!]
+  Y_not_in: [Float!]
+  Y_lt: Float
+  Y_lte: Float
+  Y_gt: Float
+  Y_gte: Float
+  AND: [AddressWhereInput!]
+  OR: [AddressWhereInput!]
+  NOT: [AddressWhereInput!]
+}
+
+input AddressWhereUniqueInput {
+  id: ID
+}
+
+type AggregateAddress {
   count: Int!
 }
 
+type AggregateCrime {
+  count: Int!
+}
+
+type AggregateFavorite {
+  count: Int!
+}
+
+type AggregateReview {
+  count: Int!
+}
 
 type AggregateStation {
   count: Int!
 }
-
 
 type AggregateUser {
   count: Int!
@@ -193,23 +330,220 @@ input CrimeWhereUniqueInput {
   id: ID
 }
 
+type Favorite {
+  id: ID!
+  placeAlias: String!
+  postedBy: User
+}
+
+type FavoriteConnection {
+  pageInfo: PageInfo!
+  edges: [FavoriteEdge]!
+  aggregate: AggregateFavorite!
+}
+
+input FavoriteCreateInput {
+  id: ID
+  placeAlias: String!
+  postedBy: UserCreateOneWithoutFavoriteInput
+}
+
+input FavoriteCreateManyWithoutPostedByInput {
+  create: [FavoriteCreateWithoutPostedByInput!]
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+input FavoriteCreateWithoutPostedByInput {
+  id: ID
+  placeAlias: String!
+}
+
+type FavoriteEdge {
+  node: Favorite!
+  cursor: String!
+}
+
+enum FavoriteOrderByInput {
+  id_ASC
+  id_DESC
+  placeAlias_ASC
+  placeAlias_DESC
+}
+
+type FavoritePreviousValues {
+  id: ID!
+  placeAlias: String!
+}
+
+input FavoriteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  placeAlias: String
+  placeAlias_not: String
+  placeAlias_in: [String!]
+  placeAlias_not_in: [String!]
+  placeAlias_lt: String
+  placeAlias_lte: String
+  placeAlias_gt: String
+  placeAlias_gte: String
+  placeAlias_contains: String
+  placeAlias_not_contains: String
+  placeAlias_starts_with: String
+  placeAlias_not_starts_with: String
+  placeAlias_ends_with: String
+  placeAlias_not_ends_with: String
+  AND: [FavoriteScalarWhereInput!]
+  OR: [FavoriteScalarWhereInput!]
+  NOT: [FavoriteScalarWhereInput!]
+}
+
+type FavoriteSubscriptionPayload {
+  mutation: MutationType!
+  node: Favorite
+  updatedFields: [String!]
+  previousValues: FavoritePreviousValues
+}
+
+input FavoriteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: FavoriteWhereInput
+  AND: [FavoriteSubscriptionWhereInput!]
+  OR: [FavoriteSubscriptionWhereInput!]
+  NOT: [FavoriteSubscriptionWhereInput!]
+}
+
+input FavoriteUpdateInput {
+  placeAlias: String
+  postedBy: UserUpdateOneWithoutFavoriteInput
+}
+
+input FavoriteUpdateManyDataInput {
+  placeAlias: String
+}
+
+input FavoriteUpdateManyMutationInput {
+  placeAlias: String
+}
+
+input FavoriteUpdateManyWithoutPostedByInput {
+  create: [FavoriteCreateWithoutPostedByInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  connect: [FavoriteWhereUniqueInput!]
+  set: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [FavoriteScalarWhereInput!]
+  updateMany: [FavoriteUpdateManyWithWhereNestedInput!]
+}
+
+input FavoriteUpdateManyWithWhereNestedInput {
+  where: FavoriteScalarWhereInput!
+  data: FavoriteUpdateManyDataInput!
+}
+
+input FavoriteUpdateWithoutPostedByDataInput {
+  placeAlias: String
+}
+
+input FavoriteUpdateWithWhereUniqueWithoutPostedByInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateWithoutPostedByDataInput!
+}
+
+input FavoriteUpsertWithWhereUniqueWithoutPostedByInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateWithoutPostedByDataInput!
+  create: FavoriteCreateWithoutPostedByInput!
+}
+
+input FavoriteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  placeAlias: String
+  placeAlias_not: String
+  placeAlias_in: [String!]
+  placeAlias_not_in: [String!]
+  placeAlias_lt: String
+  placeAlias_lte: String
+  placeAlias_gt: String
+  placeAlias_gte: String
+  placeAlias_contains: String
+  placeAlias_not_contains: String
+  placeAlias_starts_with: String
+  placeAlias_not_starts_with: String
+  placeAlias_ends_with: String
+  placeAlias_not_ends_with: String
+  postedBy: UserWhereInput
+  AND: [FavoriteWhereInput!]
+  OR: [FavoriteWhereInput!]
+  NOT: [FavoriteWhereInput!]
+}
+
+input FavoriteWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createAddress(data: AddressCreateInput!): Address!
+  updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
+  updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
+  upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
+  deleteAddress(where: AddressWhereUniqueInput!): Address
+  deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   createCrime(data: CrimeCreateInput!): Crime!
   updateCrime(data: CrimeUpdateInput!, where: CrimeWhereUniqueInput!): Crime
   updateManyCrimes(data: CrimeUpdateManyMutationInput!, where: CrimeWhereInput): BatchPayload!
   upsertCrime(where: CrimeWhereUniqueInput!, create: CrimeCreateInput!, update: CrimeUpdateInput!): Crime!
   deleteCrime(where: CrimeWhereUniqueInput!): Crime
   deleteManyCrimes(where: CrimeWhereInput): BatchPayload!
-
+  createFavorite(data: FavoriteCreateInput!): Favorite!
+  updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
+  updateManyFavorites(data: FavoriteUpdateManyMutationInput!, where: FavoriteWhereInput): BatchPayload!
+  upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
+  deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
+  deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
+  createReview(data: ReviewCreateInput!): Review!
+  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
+  updateManyReviews(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
+  upsertReview(where: ReviewWhereUniqueInput!, create: ReviewCreateInput!, update: ReviewUpdateInput!): Review!
+  deleteReview(where: ReviewWhereUniqueInput!): Review
+  deleteManyReviews(where: ReviewWhereInput): BatchPayload!
   createStation(data: StationCreateInput!): Station!
   updateStation(data: StationUpdateInput!, where: StationWhereUniqueInput!): Station
   updateManyStations(data: StationUpdateManyMutationInput!, where: StationWhereInput): BatchPayload!
   upsertStation(where: StationWhereUniqueInput!, create: StationCreateInput!, update: StationUpdateInput!): Station!
   deleteStation(where: StationWhereUniqueInput!): Station
   deleteManyStations(where: StationWhereInput): BatchPayload!
-
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -236,18 +570,232 @@ type PageInfo {
 }
 
 type Query {
+  address(where: AddressWhereUniqueInput!): Address
+  addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
+  addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   crime(where: CrimeWhereUniqueInput!): Crime
   crimes(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Crime]!
   crimesConnection(where: CrimeWhereInput, orderBy: CrimeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CrimeConnection!
-
+  favorite(where: FavoriteWhereUniqueInput!): Favorite
+  favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite]!
+  favoritesConnection(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteConnection!
+  review(where: ReviewWhereUniqueInput!): Review
+  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review]!
+  reviewsConnection(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReviewConnection!
   station(where: StationWhereUniqueInput!): Station
   stations(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Station]!
   stationsConnection(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StationConnection!
-
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
+}
+
+type Review {
+  id: ID!
+  text: String!
+  grade: Float!
+  postedBy: User
+}
+
+type ReviewConnection {
+  pageInfo: PageInfo!
+  edges: [ReviewEdge]!
+  aggregate: AggregateReview!
+}
+
+input ReviewCreateInput {
+  id: ID
+  text: String!
+  grade: Float!
+  postedBy: UserCreateOneWithoutReviewInput
+}
+
+input ReviewCreateManyWithoutPostedByInput {
+  create: [ReviewCreateWithoutPostedByInput!]
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateWithoutPostedByInput {
+  id: ID
+  text: String!
+  grade: Float!
+}
+
+type ReviewEdge {
+  node: Review!
+  cursor: String!
+}
+
+enum ReviewOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  grade_ASC
+  grade_DESC
+}
+
+type ReviewPreviousValues {
+  id: ID!
+  text: String!
+  grade: Float!
+}
+
+input ReviewScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  grade: Float
+  grade_not: Float
+  grade_in: [Float!]
+  grade_not_in: [Float!]
+  grade_lt: Float
+  grade_lte: Float
+  grade_gt: Float
+  grade_gte: Float
+  AND: [ReviewScalarWhereInput!]
+  OR: [ReviewScalarWhereInput!]
+  NOT: [ReviewScalarWhereInput!]
+}
+
+type ReviewSubscriptionPayload {
+  mutation: MutationType!
+  node: Review
+  updatedFields: [String!]
+  previousValues: ReviewPreviousValues
+}
+
+input ReviewSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ReviewWhereInput
+  AND: [ReviewSubscriptionWhereInput!]
+  OR: [ReviewSubscriptionWhereInput!]
+  NOT: [ReviewSubscriptionWhereInput!]
+}
+
+input ReviewUpdateInput {
+  text: String
+  grade: Float
+  postedBy: UserUpdateOneWithoutReviewInput
+}
+
+input ReviewUpdateManyDataInput {
+  text: String
+  grade: Float
+}
+
+input ReviewUpdateManyMutationInput {
+  text: String
+  grade: Float
+}
+
+input ReviewUpdateManyWithoutPostedByInput {
+  create: [ReviewCreateWithoutPostedByInput!]
+  delete: [ReviewWhereUniqueInput!]
+  connect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  update: [ReviewUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [ReviewUpsertWithWhereUniqueWithoutPostedByInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
+}
+
+input ReviewUpdateManyWithWhereNestedInput {
+  where: ReviewScalarWhereInput!
+  data: ReviewUpdateManyDataInput!
+}
+
+input ReviewUpdateWithoutPostedByDataInput {
+  text: String
+  grade: Float
+}
+
+input ReviewUpdateWithWhereUniqueWithoutPostedByInput {
+  where: ReviewWhereUniqueInput!
+  data: ReviewUpdateWithoutPostedByDataInput!
+}
+
+input ReviewUpsertWithWhereUniqueWithoutPostedByInput {
+  where: ReviewWhereUniqueInput!
+  update: ReviewUpdateWithoutPostedByDataInput!
+  create: ReviewCreateWithoutPostedByInput!
+}
+
+input ReviewWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  grade: Float
+  grade_not: Float
+  grade_in: [Float!]
+  grade_not_in: [Float!]
+  grade_lt: Float
+  grade_lte: Float
+  grade_gt: Float
+  grade_gte: Float
+  postedBy: UserWhereInput
+  AND: [ReviewWhereInput!]
+  OR: [ReviewWhereInput!]
+  NOT: [ReviewWhereInput!]
+}
+
+input ReviewWhereUniqueInput {
+  id: ID
 }
 
 type Station {
@@ -399,10 +947,11 @@ input StationWhereUniqueInput {
 }
 
 type Subscription {
+  address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
   crime(where: CrimeSubscriptionWhereInput): CrimeSubscriptionPayload
-
+  favorite(where: FavoriteSubscriptionWhereInput): FavoriteSubscriptionPayload
+  review(where: ReviewSubscriptionWhereInput): ReviewSubscriptionPayload
   station(where: StationSubscriptionWhereInput): StationSubscriptionPayload
-
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -410,6 +959,8 @@ type User {
   id: ID!
   email: String!
   password: String!
+  review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
+  favorite(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
 }
 
 type UserConnection {
@@ -422,6 +973,32 @@ input UserCreateInput {
   id: ID
   email: String!
   password: String!
+  review: ReviewCreateManyWithoutPostedByInput
+  favorite: FavoriteCreateManyWithoutPostedByInput
+}
+
+input UserCreateOneWithoutFavoriteInput {
+  create: UserCreateWithoutFavoriteInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutReviewInput {
+  create: UserCreateWithoutReviewInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutFavoriteInput {
+  id: ID
+  email: String!
+  password: String!
+  review: ReviewCreateManyWithoutPostedByInput
+}
+
+input UserCreateWithoutReviewInput {
+  id: ID
+  email: String!
+  password: String!
+  favorite: FavoriteCreateManyWithoutPostedByInput
 }
 
 type UserEdge {
@@ -465,11 +1042,53 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   email: String
   password: String
+  review: ReviewUpdateManyWithoutPostedByInput
+  favorite: FavoriteUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
+}
+
+input UserUpdateOneWithoutFavoriteInput {
+  create: UserCreateWithoutFavoriteInput
+  update: UserUpdateWithoutFavoriteDataInput
+  upsert: UserUpsertWithoutFavoriteInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutReviewInput {
+  create: UserCreateWithoutReviewInput
+  update: UserUpdateWithoutReviewDataInput
+  upsert: UserUpsertWithoutReviewInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutFavoriteDataInput {
+  email: String
+  password: String
+  review: ReviewUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateWithoutReviewDataInput {
+  email: String
+  password: String
+  favorite: FavoriteUpdateManyWithoutPostedByInput
+}
+
+input UserUpsertWithoutFavoriteInput {
+  update: UserUpdateWithoutFavoriteDataInput!
+  create: UserCreateWithoutFavoriteInput!
+}
+
+input UserUpsertWithoutReviewInput {
+  update: UserUpdateWithoutReviewDataInput!
+  create: UserCreateWithoutReviewInput!
 }
 
 input UserWhereInput {
@@ -515,6 +1134,12 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  review_every: ReviewWhereInput
+  review_some: ReviewWhereInput
+  review_none: ReviewWhereInput
+  favorite_every: FavoriteWhereInput
+  favorite_some: FavoriteWhereInput
+  favorite_none: FavoriteWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

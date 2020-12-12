@@ -1,0 +1,7 @@
+type Mutation {
+  editMyFavorite(id: ID!, placeAlias: String!): Boolean!
+}
+
+type Query {
+  nouse: Int!
+}

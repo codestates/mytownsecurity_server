@@ -2,6 +2,21 @@ type User {
   id: ID!
   email: String!
   password: String!
+  review: Review
+  favorite: Favorite
+}
+
+type Review {
+  id: ID!
+  text: String!
+  grade: Float!
+  postedBy: User
+}
+
+type Favorite {
+  id: ID!
+  placeAlias: String!
+  postedBy: User
 }
 
 type Crime {
@@ -14,7 +29,6 @@ type Crime {
   violence: Int!
 }
 
-
 type Station {
   id: ID!
   stationName: String!
@@ -22,4 +36,3 @@ type Station {
   Y: Float!
   stationAddress: String!
 }
-

@@ -9,14 +9,24 @@ var models = [
     embedded: false
   },
   {
+    name: "Review",
+    embedded: false
+  },
+  {
+    name: "Favorite",
+    embedded: false
+  },
+  {
+    name: "Address",
+    embedded: false
+  },
+  {
     name: "Crime",
     embedded: false
-
   },
   {
     name: "Station",
     embedded: false
-
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
