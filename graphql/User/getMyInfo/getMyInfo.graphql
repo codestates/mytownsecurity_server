@@ -1,0 +1,7 @@
+type Query {
+  getMyInfo(email: String!): User
+}
+
+type Mutation {
+  nouse: Int!
+}

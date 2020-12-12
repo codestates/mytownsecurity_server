@@ -2,14 +2,36 @@ type User {
   id: ID! @id             
   email: String! @unique  
   password: String!
-  review: [Review]!         
+  review: [Review]!
+  favorite: [Favorite]!         
 }
 
 type Review {
   id : ID! @id
   text : String!
-  grade : String!
+  grade : Float!
   postedBy : User
+}
+
+type Favorite {
+  id : ID! @id
+  placeAlias: String!
+  postedBy : User
+}
+
+type Address {
+  id: ID! @id
+  detail: String!
+  X : Float!
+  Y : Float!
+}
+
+type Station {
+  id : ID! @id
+  stationName : String!
+  X : Float!
+  Y : Float!
+  stationAddress : String!
 }
 
 type Crime {
@@ -20,12 +42,4 @@ type Crime {
   rape: Int!  
   theft: Int! 
   violence: Int! 
-}
-
-type Station {
-  id : ID! @id
-  stationName : String!
-  X : Float!
-  Y : Float!
-  stationAddress : String!
 }

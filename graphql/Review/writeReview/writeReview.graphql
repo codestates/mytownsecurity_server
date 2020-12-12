@@ -1,0 +1,7 @@
+type Mutation {
+  writeReview(text: String!, grade: Float!): Boolean!
+}
+
+type Query {
+  nouse: Int!
+}
