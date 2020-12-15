@@ -9,6 +9,7 @@ module.exports = {
   X: Float!
   Y: Float!
   gu: String!
+  rn: String!
   review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   favorite(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
 }
@@ -25,6 +26,7 @@ input AddressCreateInput {
   X: Float!
   Y: Float!
   gu: String!
+  rn: String!
   review: ReviewCreateManyWithoutPostedAtInput
   favorite: FavoriteCreateManyWithoutPostedAtInput
 }
@@ -45,6 +47,7 @@ input AddressCreateWithoutFavoriteInput {
   X: Float!
   Y: Float!
   gu: String!
+  rn: String!
   review: ReviewCreateManyWithoutPostedAtInput
 }
 
@@ -54,6 +57,7 @@ input AddressCreateWithoutReviewInput {
   X: Float!
   Y: Float!
   gu: String!
+  rn: String!
   favorite: FavoriteCreateManyWithoutPostedAtInput
 }
 
@@ -73,6 +77,8 @@ enum AddressOrderByInput {
   Y_DESC
   gu_ASC
   gu_DESC
+  rn_ASC
+  rn_DESC
 }
 
 type AddressPreviousValues {
@@ -81,6 +87,7 @@ type AddressPreviousValues {
   X: Float!
   Y: Float!
   gu: String!
+  rn: String!
 }
 
 type AddressSubscriptionPayload {
@@ -106,6 +113,7 @@ input AddressUpdateInput {
   X: Float
   Y: Float
   gu: String
+  rn: String
   review: ReviewUpdateManyWithoutPostedAtInput
   favorite: FavoriteUpdateManyWithoutPostedAtInput
 }
@@ -115,6 +123,7 @@ input AddressUpdateManyMutationInput {
   X: Float
   Y: Float
   gu: String
+  rn: String
 }
 
 input AddressUpdateOneRequiredWithoutFavoriteInput {
@@ -136,6 +145,7 @@ input AddressUpdateWithoutFavoriteDataInput {
   X: Float
   Y: Float
   gu: String
+  rn: String
   review: ReviewUpdateManyWithoutPostedAtInput
 }
 
@@ -144,6 +154,7 @@ input AddressUpdateWithoutReviewDataInput {
   X: Float
   Y: Float
   gu: String
+  rn: String
   favorite: FavoriteUpdateManyWithoutPostedAtInput
 }
 
@@ -216,6 +227,20 @@ input AddressWhereInput {
   gu_not_starts_with: String
   gu_ends_with: String
   gu_not_ends_with: String
+  rn: String
+  rn_not: String
+  rn_in: [String!]
+  rn_not_in: [String!]
+  rn_lt: String
+  rn_lte: String
+  rn_gt: String
+  rn_gte: String
+  rn_contains: String
+  rn_not_contains: String
+  rn_starts_with: String
+  rn_not_starts_with: String
+  rn_ends_with: String
+  rn_not_ends_with: String
   review_every: ReviewWhereInput
   review_some: ReviewWhereInput
   review_none: ReviewWhereInput
@@ -432,9 +457,13 @@ input CrimeWhereUniqueInput {
   gu: String
 }
 
+scalar DateTime
+
 type Favorite {
   id: ID!
   aliasInput: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   postedBy: User!
   postedAt: Address!
 }
@@ -484,11 +513,17 @@ enum FavoriteOrderByInput {
   id_DESC
   aliasInput_ASC
   aliasInput_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type FavoritePreviousValues {
   id: ID!
   aliasInput: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input FavoriteScalarWhereInput {
@@ -520,6 +555,22 @@ input FavoriteScalarWhereInput {
   aliasInput_not_starts_with: String
   aliasInput_ends_with: String
   aliasInput_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [FavoriteScalarWhereInput!]
   OR: [FavoriteScalarWhereInput!]
   NOT: [FavoriteScalarWhereInput!]
@@ -647,6 +698,22 @@ input FavoriteWhereInput {
   aliasInput_not_starts_with: String
   aliasInput_ends_with: String
   aliasInput_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   postedBy: UserWhereInput
   postedAt: AddressWhereInput
   AND: [FavoriteWhereInput!]
@@ -742,6 +809,8 @@ type Review {
   id: ID!
   text: String!
   rating: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   postedBy: User!
   postedAt: Address!
 }
@@ -796,12 +865,18 @@ enum ReviewOrderByInput {
   text_DESC
   rating_ASC
   rating_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ReviewPreviousValues {
   id: ID!
   text: String!
   rating: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ReviewScalarWhereInput {
@@ -841,6 +916,22 @@ input ReviewScalarWhereInput {
   rating_lte: Int
   rating_gt: Int
   rating_gte: Int
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ReviewScalarWhereInput!]
   OR: [ReviewScalarWhereInput!]
   NOT: [ReviewScalarWhereInput!]
@@ -981,6 +1072,22 @@ input ReviewWhereInput {
   rating_lte: Int
   rating_gt: Int
   rating_gte: Int
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   postedBy: UserWhereInput
   postedAt: AddressWhereInput
   AND: [ReviewWhereInput!]

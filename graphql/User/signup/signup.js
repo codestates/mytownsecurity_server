@@ -10,8 +10,8 @@ export default {
         throw Error('Already exists Email');
       }
       const hashedPassword = await bcrypt.hash(password, 5);
-      await prisma.createUser({ email, password: hashedPassword });
-      return true;
+      const user = await prisma.createUser({ email, password: hashedPassword });
+      return user;
     },
   },
 };
