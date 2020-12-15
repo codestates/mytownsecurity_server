@@ -1,0 +1,8 @@
+type Query {
+  getSearchedLocation(addressId: ID!): serchedAddress
+}
+
+type serchedAddress {
+  address: Address
+  crime: Crime
+}

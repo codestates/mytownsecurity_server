@@ -1,0 +1,7 @@
+type Mutation {
+  createAddress(detail: String!, X: Float!, Y: Float!, gu: String!): Address
+}
+
+type Query {
+  nouse: Int!
+}

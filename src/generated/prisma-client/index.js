@@ -21,11 +21,11 @@ var models = [
     embedded: false
   },
   {
-    name: "Crime",
+    name: "Station",
     embedded: false
   },
   {
-    name: "Station",
+    name: "Crime",
     embedded: false
   }
 ];

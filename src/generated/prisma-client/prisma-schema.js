@@ -8,6 +8,9 @@ module.exports = {
   detail: String!
   X: Float!
   Y: Float!
+  gu: String!
+  review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
+  favorite(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
 }
 
 type AddressConnection {
@@ -21,6 +24,37 @@ input AddressCreateInput {
   detail: String!
   X: Float!
   Y: Float!
+  gu: String!
+  review: ReviewCreateManyWithoutPostedAtInput
+  favorite: FavoriteCreateManyWithoutPostedAtInput
+}
+
+input AddressCreateOneWithoutFavoriteInput {
+  create: AddressCreateWithoutFavoriteInput
+  connect: AddressWhereUniqueInput
+}
+
+input AddressCreateOneWithoutReviewInput {
+  create: AddressCreateWithoutReviewInput
+  connect: AddressWhereUniqueInput
+}
+
+input AddressCreateWithoutFavoriteInput {
+  id: ID
+  detail: String!
+  X: Float!
+  Y: Float!
+  gu: String!
+  review: ReviewCreateManyWithoutPostedAtInput
+}
+
+input AddressCreateWithoutReviewInput {
+  id: ID
+  detail: String!
+  X: Float!
+  Y: Float!
+  gu: String!
+  favorite: FavoriteCreateManyWithoutPostedAtInput
 }
 
 type AddressEdge {
@@ -37,6 +71,8 @@ enum AddressOrderByInput {
   X_DESC
   Y_ASC
   Y_DESC
+  gu_ASC
+  gu_DESC
 }
 
 type AddressPreviousValues {
@@ -44,6 +80,7 @@ type AddressPreviousValues {
   detail: String!
   X: Float!
   Y: Float!
+  gu: String!
 }
 
 type AddressSubscriptionPayload {
@@ -68,12 +105,56 @@ input AddressUpdateInput {
   detail: String
   X: Float
   Y: Float
+  gu: String
+  review: ReviewUpdateManyWithoutPostedAtInput
+  favorite: FavoriteUpdateManyWithoutPostedAtInput
 }
 
 input AddressUpdateManyMutationInput {
   detail: String
   X: Float
   Y: Float
+  gu: String
+}
+
+input AddressUpdateOneRequiredWithoutFavoriteInput {
+  create: AddressCreateWithoutFavoriteInput
+  update: AddressUpdateWithoutFavoriteDataInput
+  upsert: AddressUpsertWithoutFavoriteInput
+  connect: AddressWhereUniqueInput
+}
+
+input AddressUpdateOneRequiredWithoutReviewInput {
+  create: AddressCreateWithoutReviewInput
+  update: AddressUpdateWithoutReviewDataInput
+  upsert: AddressUpsertWithoutReviewInput
+  connect: AddressWhereUniqueInput
+}
+
+input AddressUpdateWithoutFavoriteDataInput {
+  detail: String
+  X: Float
+  Y: Float
+  gu: String
+  review: ReviewUpdateManyWithoutPostedAtInput
+}
+
+input AddressUpdateWithoutReviewDataInput {
+  detail: String
+  X: Float
+  Y: Float
+  gu: String
+  favorite: FavoriteUpdateManyWithoutPostedAtInput
+}
+
+input AddressUpsertWithoutFavoriteInput {
+  update: AddressUpdateWithoutFavoriteDataInput!
+  create: AddressCreateWithoutFavoriteInput!
+}
+
+input AddressUpsertWithoutReviewInput {
+  update: AddressUpdateWithoutReviewDataInput!
+  create: AddressCreateWithoutReviewInput!
 }
 
 input AddressWhereInput {
@@ -121,6 +202,26 @@ input AddressWhereInput {
   Y_lte: Float
   Y_gt: Float
   Y_gte: Float
+  gu: String
+  gu_not: String
+  gu_in: [String!]
+  gu_not_in: [String!]
+  gu_lt: String
+  gu_lte: String
+  gu_gt: String
+  gu_gte: String
+  gu_contains: String
+  gu_not_contains: String
+  gu_starts_with: String
+  gu_not_starts_with: String
+  gu_ends_with: String
+  gu_not_ends_with: String
+  review_every: ReviewWhereInput
+  review_some: ReviewWhereInput
+  review_none: ReviewWhereInput
+  favorite_every: FavoriteWhereInput
+  favorite_some: FavoriteWhereInput
+  favorite_none: FavoriteWhereInput
   AND: [AddressWhereInput!]
   OR: [AddressWhereInput!]
   NOT: [AddressWhereInput!]
@@ -328,12 +429,14 @@ input CrimeWhereInput {
 
 input CrimeWhereUniqueInput {
   id: ID
+  gu: String
 }
 
 type Favorite {
   id: ID!
-  placeAlias: String!
-  postedBy: User
+  aliasInput: String!
+  postedBy: User!
+  postedAt: Address!
 }
 
 type FavoriteConnection {
@@ -344,8 +447,14 @@ type FavoriteConnection {
 
 input FavoriteCreateInput {
   id: ID
-  placeAlias: String!
-  postedBy: UserCreateOneWithoutFavoriteInput
+  aliasInput: String!
+  postedBy: UserCreateOneWithoutFavoriteInput!
+  postedAt: AddressCreateOneWithoutFavoriteInput!
+}
+
+input FavoriteCreateManyWithoutPostedAtInput {
+  create: [FavoriteCreateWithoutPostedAtInput!]
+  connect: [FavoriteWhereUniqueInput!]
 }
 
 input FavoriteCreateManyWithoutPostedByInput {
@@ -353,9 +462,16 @@ input FavoriteCreateManyWithoutPostedByInput {
   connect: [FavoriteWhereUniqueInput!]
 }
 
+input FavoriteCreateWithoutPostedAtInput {
+  id: ID
+  aliasInput: String!
+  postedBy: UserCreateOneWithoutFavoriteInput!
+}
+
 input FavoriteCreateWithoutPostedByInput {
   id: ID
-  placeAlias: String!
+  aliasInput: String!
+  postedAt: AddressCreateOneWithoutFavoriteInput!
 }
 
 type FavoriteEdge {
@@ -366,13 +482,13 @@ type FavoriteEdge {
 enum FavoriteOrderByInput {
   id_ASC
   id_DESC
-  placeAlias_ASC
-  placeAlias_DESC
+  aliasInput_ASC
+  aliasInput_DESC
 }
 
 type FavoritePreviousValues {
   id: ID!
-  placeAlias: String!
+  aliasInput: String!
 }
 
 input FavoriteScalarWhereInput {
@@ -390,20 +506,20 @@ input FavoriteScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  placeAlias: String
-  placeAlias_not: String
-  placeAlias_in: [String!]
-  placeAlias_not_in: [String!]
-  placeAlias_lt: String
-  placeAlias_lte: String
-  placeAlias_gt: String
-  placeAlias_gte: String
-  placeAlias_contains: String
-  placeAlias_not_contains: String
-  placeAlias_starts_with: String
-  placeAlias_not_starts_with: String
-  placeAlias_ends_with: String
-  placeAlias_not_ends_with: String
+  aliasInput: String
+  aliasInput_not: String
+  aliasInput_in: [String!]
+  aliasInput_not_in: [String!]
+  aliasInput_lt: String
+  aliasInput_lte: String
+  aliasInput_gt: String
+  aliasInput_gte: String
+  aliasInput_contains: String
+  aliasInput_not_contains: String
+  aliasInput_starts_with: String
+  aliasInput_not_starts_with: String
+  aliasInput_ends_with: String
+  aliasInput_not_ends_with: String
   AND: [FavoriteScalarWhereInput!]
   OR: [FavoriteScalarWhereInput!]
   NOT: [FavoriteScalarWhereInput!]
@@ -428,16 +544,29 @@ input FavoriteSubscriptionWhereInput {
 }
 
 input FavoriteUpdateInput {
-  placeAlias: String
-  postedBy: UserUpdateOneWithoutFavoriteInput
+  aliasInput: String
+  postedBy: UserUpdateOneRequiredWithoutFavoriteInput
+  postedAt: AddressUpdateOneRequiredWithoutFavoriteInput
 }
 
 input FavoriteUpdateManyDataInput {
-  placeAlias: String
+  aliasInput: String
 }
 
 input FavoriteUpdateManyMutationInput {
-  placeAlias: String
+  aliasInput: String
+}
+
+input FavoriteUpdateManyWithoutPostedAtInput {
+  create: [FavoriteCreateWithoutPostedAtInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  connect: [FavoriteWhereUniqueInput!]
+  set: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueWithoutPostedAtInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueWithoutPostedAtInput!]
+  deleteMany: [FavoriteScalarWhereInput!]
+  updateMany: [FavoriteUpdateManyWithWhereNestedInput!]
 }
 
 input FavoriteUpdateManyWithoutPostedByInput {
@@ -457,13 +586,30 @@ input FavoriteUpdateManyWithWhereNestedInput {
   data: FavoriteUpdateManyDataInput!
 }
 
+input FavoriteUpdateWithoutPostedAtDataInput {
+  aliasInput: String
+  postedBy: UserUpdateOneRequiredWithoutFavoriteInput
+}
+
 input FavoriteUpdateWithoutPostedByDataInput {
-  placeAlias: String
+  aliasInput: String
+  postedAt: AddressUpdateOneRequiredWithoutFavoriteInput
+}
+
+input FavoriteUpdateWithWhereUniqueWithoutPostedAtInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateWithoutPostedAtDataInput!
 }
 
 input FavoriteUpdateWithWhereUniqueWithoutPostedByInput {
   where: FavoriteWhereUniqueInput!
   data: FavoriteUpdateWithoutPostedByDataInput!
+}
+
+input FavoriteUpsertWithWhereUniqueWithoutPostedAtInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateWithoutPostedAtDataInput!
+  create: FavoriteCreateWithoutPostedAtInput!
 }
 
 input FavoriteUpsertWithWhereUniqueWithoutPostedByInput {
@@ -487,21 +633,22 @@ input FavoriteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  placeAlias: String
-  placeAlias_not: String
-  placeAlias_in: [String!]
-  placeAlias_not_in: [String!]
-  placeAlias_lt: String
-  placeAlias_lte: String
-  placeAlias_gt: String
-  placeAlias_gte: String
-  placeAlias_contains: String
-  placeAlias_not_contains: String
-  placeAlias_starts_with: String
-  placeAlias_not_starts_with: String
-  placeAlias_ends_with: String
-  placeAlias_not_ends_with: String
+  aliasInput: String
+  aliasInput_not: String
+  aliasInput_in: [String!]
+  aliasInput_not_in: [String!]
+  aliasInput_lt: String
+  aliasInput_lte: String
+  aliasInput_gt: String
+  aliasInput_gte: String
+  aliasInput_contains: String
+  aliasInput_not_contains: String
+  aliasInput_starts_with: String
+  aliasInput_not_starts_with: String
+  aliasInput_ends_with: String
+  aliasInput_not_ends_with: String
   postedBy: UserWhereInput
+  postedAt: AddressWhereInput
   AND: [FavoriteWhereInput!]
   OR: [FavoriteWhereInput!]
   NOT: [FavoriteWhereInput!]
@@ -594,8 +741,9 @@ type Query {
 type Review {
   id: ID!
   text: String!
-  grade: Float!
-  postedBy: User
+  rating: Int!
+  postedBy: User!
+  postedAt: Address!
 }
 
 type ReviewConnection {
@@ -607,8 +755,14 @@ type ReviewConnection {
 input ReviewCreateInput {
   id: ID
   text: String!
-  grade: Float!
-  postedBy: UserCreateOneWithoutReviewInput
+  rating: Int!
+  postedBy: UserCreateOneWithoutReviewInput!
+  postedAt: AddressCreateOneWithoutReviewInput!
+}
+
+input ReviewCreateManyWithoutPostedAtInput {
+  create: [ReviewCreateWithoutPostedAtInput!]
+  connect: [ReviewWhereUniqueInput!]
 }
 
 input ReviewCreateManyWithoutPostedByInput {
@@ -616,10 +770,18 @@ input ReviewCreateManyWithoutPostedByInput {
   connect: [ReviewWhereUniqueInput!]
 }
 
+input ReviewCreateWithoutPostedAtInput {
+  id: ID
+  text: String!
+  rating: Int!
+  postedBy: UserCreateOneWithoutReviewInput!
+}
+
 input ReviewCreateWithoutPostedByInput {
   id: ID
   text: String!
-  grade: Float!
+  rating: Int!
+  postedAt: AddressCreateOneWithoutReviewInput!
 }
 
 type ReviewEdge {
@@ -632,14 +794,14 @@ enum ReviewOrderByInput {
   id_DESC
   text_ASC
   text_DESC
-  grade_ASC
-  grade_DESC
+  rating_ASC
+  rating_DESC
 }
 
 type ReviewPreviousValues {
   id: ID!
   text: String!
-  grade: Float!
+  rating: Int!
 }
 
 input ReviewScalarWhereInput {
@@ -671,14 +833,14 @@ input ReviewScalarWhereInput {
   text_not_starts_with: String
   text_ends_with: String
   text_not_ends_with: String
-  grade: Float
-  grade_not: Float
-  grade_in: [Float!]
-  grade_not_in: [Float!]
-  grade_lt: Float
-  grade_lte: Float
-  grade_gt: Float
-  grade_gte: Float
+  rating: Int
+  rating_not: Int
+  rating_in: [Int!]
+  rating_not_in: [Int!]
+  rating_lt: Int
+  rating_lte: Int
+  rating_gt: Int
+  rating_gte: Int
   AND: [ReviewScalarWhereInput!]
   OR: [ReviewScalarWhereInput!]
   NOT: [ReviewScalarWhereInput!]
@@ -704,18 +866,31 @@ input ReviewSubscriptionWhereInput {
 
 input ReviewUpdateInput {
   text: String
-  grade: Float
-  postedBy: UserUpdateOneWithoutReviewInput
+  rating: Int
+  postedBy: UserUpdateOneRequiredWithoutReviewInput
+  postedAt: AddressUpdateOneRequiredWithoutReviewInput
 }
 
 input ReviewUpdateManyDataInput {
   text: String
-  grade: Float
+  rating: Int
 }
 
 input ReviewUpdateManyMutationInput {
   text: String
-  grade: Float
+  rating: Int
+}
+
+input ReviewUpdateManyWithoutPostedAtInput {
+  create: [ReviewCreateWithoutPostedAtInput!]
+  delete: [ReviewWhereUniqueInput!]
+  connect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  update: [ReviewUpdateWithWhereUniqueWithoutPostedAtInput!]
+  upsert: [ReviewUpsertWithWhereUniqueWithoutPostedAtInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
 }
 
 input ReviewUpdateManyWithoutPostedByInput {
@@ -735,14 +910,32 @@ input ReviewUpdateManyWithWhereNestedInput {
   data: ReviewUpdateManyDataInput!
 }
 
+input ReviewUpdateWithoutPostedAtDataInput {
+  text: String
+  rating: Int
+  postedBy: UserUpdateOneRequiredWithoutReviewInput
+}
+
 input ReviewUpdateWithoutPostedByDataInput {
   text: String
-  grade: Float
+  rating: Int
+  postedAt: AddressUpdateOneRequiredWithoutReviewInput
+}
+
+input ReviewUpdateWithWhereUniqueWithoutPostedAtInput {
+  where: ReviewWhereUniqueInput!
+  data: ReviewUpdateWithoutPostedAtDataInput!
 }
 
 input ReviewUpdateWithWhereUniqueWithoutPostedByInput {
   where: ReviewWhereUniqueInput!
   data: ReviewUpdateWithoutPostedByDataInput!
+}
+
+input ReviewUpsertWithWhereUniqueWithoutPostedAtInput {
+  where: ReviewWhereUniqueInput!
+  update: ReviewUpdateWithoutPostedAtDataInput!
+  create: ReviewCreateWithoutPostedAtInput!
 }
 
 input ReviewUpsertWithWhereUniqueWithoutPostedByInput {
@@ -780,15 +973,16 @@ input ReviewWhereInput {
   text_not_starts_with: String
   text_ends_with: String
   text_not_ends_with: String
-  grade: Float
-  grade_not: Float
-  grade_in: [Float!]
-  grade_not_in: [Float!]
-  grade_lt: Float
-  grade_lte: Float
-  grade_gt: Float
-  grade_gte: Float
+  rating: Int
+  rating_not: Int
+  rating_in: [Int!]
+  rating_not_in: [Int!]
+  rating_lt: Int
+  rating_lte: Int
+  rating_gt: Int
+  rating_gte: Int
   postedBy: UserWhereInput
+  postedAt: AddressWhereInput
   AND: [ReviewWhereInput!]
   OR: [ReviewWhereInput!]
   NOT: [ReviewWhereInput!]
@@ -1051,21 +1245,17 @@ input UserUpdateManyMutationInput {
   password: String
 }
 
-input UserUpdateOneWithoutFavoriteInput {
+input UserUpdateOneRequiredWithoutFavoriteInput {
   create: UserCreateWithoutFavoriteInput
   update: UserUpdateWithoutFavoriteDataInput
   upsert: UserUpsertWithoutFavoriteInput
-  delete: Boolean
-  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneWithoutReviewInput {
+input UserUpdateOneRequiredWithoutReviewInput {
   create: UserCreateWithoutReviewInput
   update: UserUpdateWithoutReviewDataInput
   upsert: UserUpsertWithoutReviewInput
-  delete: Boolean
-  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 

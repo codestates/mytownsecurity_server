@@ -2,21 +2,23 @@ type User {
   id: ID! @id             
   email: String! @unique  
   password: String!
-  review: [Review]!
-  favorite: [Favorite]!         
+  review: [Review!]!
+  favorite: [Favorite!]!     
 }
 
 type Review {
   id : ID! @id
   text : String!
-  grade : Float!
-  postedBy : User
+  rating : Int!
+  postedBy: User!
+  postedAt: Address!
 }
 
 type Favorite {
   id : ID! @id
-  placeAlias: String!
-  postedBy : User
+  aliasInput: String!
+  postedBy: User! 
+  postedAt: Address!
 }
 
 type Address {
@@ -24,6 +26,9 @@ type Address {
   detail: String!
   X : Float!
   Y : Float!
+  gu : String!
+  review: [Review!]!
+  favorite: [Favorite!]!
 }
 
 type Station {
@@ -36,10 +41,10 @@ type Station {
 
 type Crime {
   id: ID! @id
-  gu: String!  
+  gu: String! @unique
   murder: Int!  
   robbery: Int!  
   rape: Int!  
   theft: Int! 
-  violence: Int! 
+  violence: Int!
 }
