@@ -1,5 +1,10 @@
 type Mutation {
-  writeReview(text: String!, grade: Float!): Boolean!
+  writeReview(
+    userId: ID!
+    addressId: ID!
+    text: String!
+    rating: Int!
+  ): Boolean!
 }
 
 type Query {
