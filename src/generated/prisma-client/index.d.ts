@@ -302,13 +302,21 @@ export type ReviewOrderByInput =
   | "text_ASC"
   | "text_DESC"
   | "rating_ASC"
-  | "rating_DESC";
+  | "rating_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type FavoriteOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "aliasInput_ASC"
-  | "aliasInput_DESC";
+  | "aliasInput_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type AddressOrderByInput =
   | "id_ASC"
@@ -320,7 +328,9 @@ export type AddressOrderByInput =
   | "Y_ASC"
   | "Y_DESC"
   | "gu_ASC"
-  | "gu_DESC";
+  | "gu_DESC"
+  | "rn_ASC"
+  | "rn_DESC";
 
 export type CrimeOrderByInput =
   | "id_ASC"
@@ -401,6 +411,22 @@ export interface ReviewWhereInput {
   rating_lte?: Maybe<Int>;
   rating_gt?: Maybe<Int>;
   rating_gte?: Maybe<Int>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   postedBy?: Maybe<UserWhereInput>;
   postedAt?: Maybe<AddressWhereInput>;
   AND?: Maybe<ReviewWhereInput[] | ReviewWhereInput>;
@@ -491,6 +517,22 @@ export interface FavoriteWhereInput {
   aliasInput_not_starts_with?: Maybe<String>;
   aliasInput_ends_with?: Maybe<String>;
   aliasInput_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   postedBy?: Maybe<UserWhereInput>;
   postedAt?: Maybe<AddressWhereInput>;
   AND?: Maybe<FavoriteWhereInput[] | FavoriteWhereInput>;
@@ -557,6 +599,20 @@ export interface AddressWhereInput {
   gu_not_starts_with?: Maybe<String>;
   gu_ends_with?: Maybe<String>;
   gu_not_ends_with?: Maybe<String>;
+  rn?: Maybe<String>;
+  rn_not?: Maybe<String>;
+  rn_in?: Maybe<String[] | String>;
+  rn_not_in?: Maybe<String[] | String>;
+  rn_lt?: Maybe<String>;
+  rn_lte?: Maybe<String>;
+  rn_gt?: Maybe<String>;
+  rn_gte?: Maybe<String>;
+  rn_contains?: Maybe<String>;
+  rn_not_contains?: Maybe<String>;
+  rn_starts_with?: Maybe<String>;
+  rn_not_starts_with?: Maybe<String>;
+  rn_ends_with?: Maybe<String>;
+  rn_not_ends_with?: Maybe<String>;
   review_every?: Maybe<ReviewWhereInput>;
   review_some?: Maybe<ReviewWhereInput>;
   review_none?: Maybe<ReviewWhereInput>;
@@ -734,6 +790,7 @@ export interface AddressCreateInput {
   X: Float;
   Y: Float;
   gu: String;
+  rn: String;
   review?: Maybe<ReviewCreateManyWithoutPostedAtInput>;
   favorite?: Maybe<FavoriteCreateManyWithoutPostedAtInput>;
 }
@@ -788,6 +845,7 @@ export interface AddressCreateWithoutFavoriteInput {
   X: Float;
   Y: Float;
   gu: String;
+  rn: String;
   review?: Maybe<ReviewCreateManyWithoutPostedAtInput>;
 }
 
@@ -841,6 +899,7 @@ export interface AddressCreateWithoutReviewInput {
   X: Float;
   Y: Float;
   gu: String;
+  rn: String;
   favorite?: Maybe<FavoriteCreateManyWithoutPostedAtInput>;
 }
 
@@ -849,6 +908,7 @@ export interface AddressUpdateInput {
   X?: Maybe<Float>;
   Y?: Maybe<Float>;
   gu?: Maybe<String>;
+  rn?: Maybe<String>;
   review?: Maybe<ReviewUpdateManyWithoutPostedAtInput>;
   favorite?: Maybe<FavoriteUpdateManyWithoutPostedAtInput>;
 }
@@ -945,6 +1005,7 @@ export interface AddressUpdateWithoutFavoriteDataInput {
   X?: Maybe<Float>;
   Y?: Maybe<Float>;
   gu?: Maybe<String>;
+  rn?: Maybe<String>;
   review?: Maybe<ReviewUpdateManyWithoutPostedAtInput>;
 }
 
@@ -988,6 +1049,22 @@ export interface FavoriteScalarWhereInput {
   aliasInput_not_starts_with?: Maybe<String>;
   aliasInput_ends_with?: Maybe<String>;
   aliasInput_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<FavoriteScalarWhereInput[] | FavoriteScalarWhereInput>;
   OR?: Maybe<FavoriteScalarWhereInput[] | FavoriteScalarWhereInput>;
   NOT?: Maybe<FavoriteScalarWhereInput[] | FavoriteScalarWhereInput>;
@@ -1050,6 +1127,22 @@ export interface ReviewScalarWhereInput {
   rating_lte?: Maybe<Int>;
   rating_gt?: Maybe<Int>;
   rating_gte?: Maybe<Int>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<ReviewScalarWhereInput[] | ReviewScalarWhereInput>;
   OR?: Maybe<ReviewScalarWhereInput[] | ReviewScalarWhereInput>;
   NOT?: Maybe<ReviewScalarWhereInput[] | ReviewScalarWhereInput>;
@@ -1157,6 +1250,7 @@ export interface AddressUpdateWithoutReviewDataInput {
   X?: Maybe<Float>;
   Y?: Maybe<Float>;
   gu?: Maybe<String>;
+  rn?: Maybe<String>;
   favorite?: Maybe<FavoriteUpdateManyWithoutPostedAtInput>;
 }
 
@@ -1187,6 +1281,7 @@ export interface AddressUpdateManyMutationInput {
   X?: Maybe<Float>;
   Y?: Maybe<Float>;
   gu?: Maybe<String>;
+  rn?: Maybe<String>;
 }
 
 export interface CrimeCreateInput {
@@ -1376,6 +1471,7 @@ export interface Address {
   X: Float;
   Y: Float;
   gu: String;
+  rn: String;
 }
 
 export interface AddressPromise extends Promise<Address>, Fragmentable {
@@ -1384,6 +1480,7 @@ export interface AddressPromise extends Promise<Address>, Fragmentable {
   X: () => Promise<Float>;
   Y: () => Promise<Float>;
   gu: () => Promise<String>;
+  rn: () => Promise<String>;
   review: <T = FragmentableArray<Review>>(args?: {
     where?: ReviewWhereInput;
     orderBy?: ReviewOrderByInput;
@@ -1412,6 +1509,7 @@ export interface AddressSubscription
   X: () => Promise<AsyncIterator<Float>>;
   Y: () => Promise<AsyncIterator<Float>>;
   gu: () => Promise<AsyncIterator<String>>;
+  rn: () => Promise<AsyncIterator<String>>;
   review: <T = Promise<AsyncIterator<ReviewSubscription>>>(args?: {
     where?: ReviewWhereInput;
     orderBy?: ReviewOrderByInput;
@@ -1440,6 +1538,7 @@ export interface AddressNullablePromise
   X: () => Promise<Float>;
   Y: () => Promise<Float>;
   gu: () => Promise<String>;
+  rn: () => Promise<String>;
   review: <T = FragmentableArray<Review>>(args?: {
     where?: ReviewWhereInput;
     orderBy?: ReviewOrderByInput;
@@ -1464,12 +1563,16 @@ export interface Review {
   id: ID_Output;
   text: String;
   rating: Int;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface ReviewPromise extends Promise<Review>, Fragmentable {
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   rating: () => Promise<Int>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   postedBy: <T = UserPromise>() => T;
   postedAt: <T = AddressPromise>() => T;
 }
@@ -1480,6 +1583,8 @@ export interface ReviewSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
   rating: () => Promise<AsyncIterator<Int>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   postedBy: <T = UserSubscription>() => T;
   postedAt: <T = AddressSubscription>() => T;
 }
@@ -1490,6 +1595,8 @@ export interface ReviewNullablePromise
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   rating: () => Promise<Int>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   postedBy: <T = UserPromise>() => T;
   postedAt: <T = AddressPromise>() => T;
 }
@@ -1579,11 +1686,15 @@ export interface UserNullablePromise
 export interface Favorite {
   id: ID_Output;
   aliasInput: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface FavoritePromise extends Promise<Favorite>, Fragmentable {
   id: () => Promise<ID_Output>;
   aliasInput: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   postedBy: <T = UserPromise>() => T;
   postedAt: <T = AddressPromise>() => T;
 }
@@ -1593,6 +1704,8 @@ export interface FavoriteSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   aliasInput: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   postedBy: <T = UserSubscription>() => T;
   postedAt: <T = AddressSubscription>() => T;
 }
@@ -1602,6 +1715,8 @@ export interface FavoriteNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   aliasInput: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   postedBy: <T = UserPromise>() => T;
   postedAt: <T = AddressPromise>() => T;
 }
@@ -2082,6 +2197,7 @@ export interface AddressPreviousValues {
   X: Float;
   Y: Float;
   gu: String;
+  rn: String;
 }
 
 export interface AddressPreviousValuesPromise
@@ -2092,6 +2208,7 @@ export interface AddressPreviousValuesPromise
   X: () => Promise<Float>;
   Y: () => Promise<Float>;
   gu: () => Promise<String>;
+  rn: () => Promise<String>;
 }
 
 export interface AddressPreviousValuesSubscription
@@ -2102,6 +2219,7 @@ export interface AddressPreviousValuesSubscription
   X: () => Promise<AsyncIterator<Float>>;
   Y: () => Promise<AsyncIterator<Float>>;
   gu: () => Promise<AsyncIterator<String>>;
+  rn: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CrimeSubscriptionPayload {
@@ -2191,6 +2309,8 @@ export interface FavoriteSubscriptionPayloadSubscription
 export interface FavoritePreviousValues {
   id: ID_Output;
   aliasInput: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface FavoritePreviousValuesPromise
@@ -2198,6 +2318,8 @@ export interface FavoritePreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   aliasInput: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface FavoritePreviousValuesSubscription
@@ -2205,6 +2327,8 @@ export interface FavoritePreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   aliasInput: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ReviewSubscriptionPayload {
@@ -2236,6 +2360,8 @@ export interface ReviewPreviousValues {
   id: ID_Output;
   text: String;
   rating: Int;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface ReviewPreviousValuesPromise
@@ -2244,6 +2370,8 @@ export interface ReviewPreviousValuesPromise
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   rating: () => Promise<Int>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ReviewPreviousValuesSubscription
@@ -2252,6 +2380,8 @@ export interface ReviewPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
   rating: () => Promise<AsyncIterator<Int>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface StationSubscriptionPayload {
@@ -2374,6 +2504,16 @@ export type Float = number;
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.

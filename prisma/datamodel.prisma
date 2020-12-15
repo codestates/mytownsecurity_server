@@ -10,6 +10,8 @@ type Review {
   id : ID! @id
   text : String!
   rating : Int!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   postedBy: User!
   postedAt: Address!
 }
@@ -17,6 +19,8 @@ type Review {
 type Favorite {
   id : ID! @id
   aliasInput: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   postedBy: User! 
   postedAt: Address!
 }
@@ -26,7 +30,8 @@ type Address {
   detail: String!
   X : Float!
   Y : Float!
-  gu : String!
+  gu : String! 
+  rn : String! 
   review: [Review!]!
   favorite: [Favorite!]!
 }
