@@ -1,27 +1,41 @@
-// import { prisma } from '../../../src/generated/prisma-client';
+import { prisma } from '../../../src/generated/prisma-client';
 
-// export default {
-//   Query: {
-//     getMyInfo: async (_, args) => {
-//       const { userId } = args;
-//       const user = await prisma.user({ id: userId });
-//       const review = await prisma.user({ id: userId }).review();
-//       const favorite = await prisma.user({ id: userId }).favorite();
-//       if (!user) {
-//         throw Error('Please Login First');
-//       }
-//       return { user, review, favorite };
-//     },
-//   },
-// };
+const fragment = `
+fragment UserWith on User {
+review{
+  id
+  text
+  rating
+  createdAt
+  updatedAt
+  postedAt{
+    detail
+    X
+    Y
+  }
+}
+favorite{
+  id
+  aliasInput
+  createdAt
+  updatedAt
+  postedAt{
+    detail
+    X
+    Y
+  }
+}
+}`;
 
-////스키마
-// type Query {
-//   getMyInfo(userId: ID!): MyInfo
-// }
-
-// type MyInfo {
-//   user: User
-//   review: [Review!]!
-//   favorite: [Favorite!]!
-// }
+export default {
+  Query: {
+    getMyInfo: async (_, args) => {
+      const { userId } = args;
+      const user = await prisma.user({ id: userId }).$fragment(fragment);
+      if (!user) {
+        throw Error('Please Login First');
+      }
+      return user;
+    },
+  },
+};
