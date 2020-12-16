@@ -12,6 +12,8 @@ type Review {
   rating: Int!
   postedBy: User!
   postedAt: Address!
+  createdAt: String
+  updatedAt: String
 }
 
 type Favorite {
@@ -19,6 +21,8 @@ type Favorite {
   aliasInput: String!
   postedBy: User!
   postedAt: Address!
+  createdAt: String
+  updatedAt: String
 }
 
 type Address {
