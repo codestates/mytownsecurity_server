@@ -1,5 +1,5 @@
 type Mutation {
-  editMyFavorite(favoriteId: ID!, placeAlias: String!): Boolean!
+  editMyFavorite(favoriteId: ID!, aliasInput: String!): Boolean!
 }
 
 type Query {

@@ -1,7 +1,12 @@
 type Mutation {
-  signup(email: String!, password: String!): User!
+  signup(email: String!, password: String!): AuthPayLoad
 }
 
 type Query {
   nouse: Int!
+}
+
+type AuthPayLoad {
+  token: String!
+  user: User
 }
