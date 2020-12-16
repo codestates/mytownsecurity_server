@@ -8,6 +8,7 @@ id
 email
 password
 review{
+  id
   text
   rating
   postedAt{
@@ -17,6 +18,7 @@ review{
   }
 }
 favorite{
+  id
   aliasInput
   postedAt{
     detail
