@@ -4,13 +4,13 @@ export default {
   Mutation: {
     addReview: async (_, args) => {
       const { userId, addressId, text, rating } = args;
-      await prisma.createReview({
+      const review = await prisma.createReview({
         text,
         rating,
         postedBy: { connect: { id: userId } },
         postedAt: { connect: { id: addressId } },
       });
-      return true;
+      return review;
     },
   },
 };
