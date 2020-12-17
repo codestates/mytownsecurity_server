@@ -1,5 +1,5 @@
 type Mutation {
-  addReview(userId: ID!, addressId: ID!, text: String!, rating: Int!): Boolean!
+  addReview(userId: ID!, addressId: ID!, text: String!, rating: Int!): Review
 }
 
 type Query {

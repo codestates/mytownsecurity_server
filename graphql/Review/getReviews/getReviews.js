@@ -2,10 +2,13 @@ import { prisma } from '../../../src/generated/prisma-client';
 
 const fragment = `
 fragment AddressWith on Address{
- rn
  review{
+     id
      text
      rating
+     postedBy{
+       id
+     }
  }
 }
 `;
